@@ -85,7 +85,7 @@
     features = void 0;
     isDensity = void 0;
     side = 10;
-    key = "id";
+    key = function(d){return d.id;};
     width = 500;
     height = 500;
     fill = "#343434";
@@ -100,7 +100,7 @@
       centroid = d3.map();
       for (_i = 0, _len = features.length; _i < _len; _i++) {
         f = features[_i];
-        area.set(f[key], path.area(f) / (w * h));
+        area.set(key(f), path.area(f) / (w * h));
       }
       svg = selection.append("svg").attr("width", w).attr("height", h).attr("viewBox", "0 0 " + w + " " + h);
       map = svg.append("g");
@@ -111,7 +111,7 @@
         if ((_ref = g.type) === "Polygon" || _ref === "MultiPolygon") {
           box = path.bounds(f);
           points = subGrid(box, side);
-          value = [f[key]];
+          value = [key(f)];
           if (points.length) {
             polygon = flat(g.type, g.coordinates);
             for (_k = 0, _len2 = points.length; _k < _len2; _k++) {
@@ -131,7 +131,7 @@
           } else {
             c = path.centroid(f);
             if (c) {
-              centroid.set(f[key], c);
+              centroid.set(key(f), c);
             }
           }
         }

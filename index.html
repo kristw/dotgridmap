@@ -21,10 +21,6 @@ var projection = d3.geo.mercator()
   .rotate([-100.6331, -13.2])
   .translate([width / 2, height / 2]);
 
-// var projection = d3.geo.albersUsa()
-//     .scale(1280/960 * width)
-//     .translate([width / 2, height / 2]);
-
 queue()
     .defer(d3.json, "thailand.json")
     .await(ready);
@@ -46,6 +42,8 @@ function ready(error, mapData) {
     data.set(keyFn(features[j]), getRandomInt(1,5));
   }
 
+  var color = d3.scale.category10();
+
   chart = gridmap()
       .data(data)
       .width(width)
@@ -55,7 +53,7 @@ function ready(error, mapData) {
       .isDensity(true)
       .projection(projection)
       .features(features)
-      .fill("#343434");
+      .fill(function(d, i){return color(d.key);});
 
   d3.select("#gridmap").call(chart);
 

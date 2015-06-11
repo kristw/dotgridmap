@@ -189,6 +189,7 @@
           k = _ref2[_l];
           if (k.keys.length) {
             _results.push({
+              key: k.keys[0],
               value: density(k.keys),
               x: k.x,
               y: k.y
